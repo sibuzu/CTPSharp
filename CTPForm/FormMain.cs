@@ -34,7 +34,8 @@ namespace CTPForm
 
         MyTradeAdapter _tradeAdapter;
         MyMarketAdapter _marketAdapter;
-        string[] _tickers = { "TF1812", "zn1812", "cs1901", "CF1812" };
+        // string[] _tickers = { "TF1812", "zn1812", "cs1901", "CF1812" };
+        string[] _tickers = { "ag1812" };
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
@@ -80,6 +81,16 @@ namespace CTPForm
         private void button2_Click(object sender, EventArgs e)
         {
             _marketAdapter.Subscribe(_tickers);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            _tradeAdapter.BuyOrder("ag1812", 3);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            _tradeAdapter.SellOrder("ag1812", 3);
         }
     }
 }

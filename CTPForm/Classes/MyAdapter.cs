@@ -3,6 +3,7 @@ using CTPMarketAdapter;
 using CTPMarketAdapter.Adapter;
 using CTPMarketAdapter.Model;
 using CTPTradeAdapter.Adapter;
+using CTPTradeAdapter.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +51,61 @@ namespace CTPForm.Classes
                 this.UserLogin(
                     res => CBInfo(res, "Trade login " + _investor), 
                     _investor, _password);
+            }
+        }
+
+        public void BuyOrder(string ticker, int quality)
+        {
+            OrderParameter order = new OrderParameter();
+            order.InstrumentID = ticker;
+            order.OrderRef = "1";
+            order.Direction = DirectionType.Buy;
+            order.PriceType = OrderPriceType.LimitPrice;
+            order.OpenCloseFlag = OpenCloseFlag.Open;
+            order.HedgeFlag = HedgeFlag.Speculation;
+            order.Price = 3520;
+            order.Quantity = quality;
+            order.TimeCondition = TimeConditionType.GFD;
+            order.VolumeCondition = VolumeConditionType.AV;
+            order.MinVolume = 1;
+            order.ContingentCondition = ContingentConditionType.Immediately;
+            order.ForceCloseReason = ForceCloseReasonType.NotForceClose;
+            order.IsAutoSuspend = 0;
+            order.UserForceClose = 0;
+
+            this.InsertOrder(CBInsertOrder, order);
+        }
+
+        public void SellOrder(string ticker, int quality)
+        {
+            OrderParameter order = new OrderParameter();
+            order.InstrumentID = ticker;
+            order.OrderRef = "1";
+            order.Direction = DirectionType.Sell;
+            order.PriceType = OrderPriceType.LimitPrice;
+            order.OpenCloseFlag = OpenCloseFlag.Open;
+            order.HedgeFlag = HedgeFlag.Speculation;
+            order.Price = 3500;
+            order.Quantity = quality;
+            order.TimeCondition = TimeConditionType.GFD;
+            order.VolumeCondition = VolumeConditionType.AV;
+            order.MinVolume = 1;
+            order.ContingentCondition = ContingentConditionType.Immediately;
+            order.ForceCloseReason = ForceCloseReasonType.NotForceClose;
+            order.IsAutoSuspend = 0;
+            order.UserForceClose = 0;
+
+            this.InsertOrder(CBInsertOrder, order);
+        }
+
+        public void CBInsertOrder(DataResult<OrderInfo> result)
+        {
+            OrderInfo orderInfo = new OrderInfo();
+            orderInfo = result.Result;
+            if (result.IsSuccess)
+            {
+                Global.AddInfo("下單成功, OrderRef：{0}, OrderSysID：{1}", 
+                    orderInfo.OrderRef, orderInfo.OrderSysID);
             }
         }
     }
