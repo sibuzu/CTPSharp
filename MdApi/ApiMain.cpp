@@ -1,48 +1,48 @@
-// MdApi.cpp : ¶¨Òå DLL Ó¦ÓÃ³ÌĞòµÄµ¼³öº¯Êı¡£
+// MdApi.cpp : å®šä¹‰ DLL åº”ç”¨ç¨‹åºçš„å¯¼å‡ºå‡½æ•°ã€‚
 //
 #include "stdafx.h"
 #include "MdApi.h"
 #include <iostream>
-//#include <vector>		//¶¯Ì¬Êı×é,Ö§³Ö¸³Öµ
+//#include <vector>		//åŠ¨æ€æ•°ç»„,æ”¯æŒèµ‹å€¼
 //using namespace std;
 
 #include "..\api\x86\ThostFtdcMdApi.h"
 
-// UserApi¶ÔÏó
+// UserApiå¯¹è±¡
 //CThostFtdcMdApi* pUserApi;
 
-// ÇëÇó±àºÅ
+// è¯·æ±‚ç¼–å·
 //int iRequestID = 0;
 
-#pragma region ÇëÇó·½·¨
+#pragma region Request Methods
 
-//´´½¨»Øµ÷Àà
+//åˆ›å»ºå›è°ƒç±»
 MDAPI_API CMdSpi* CreateSpi()
 {
 	CMdSpi* pUserSpi = new CMdSpi();
 	return pUserSpi;
 }
 
-//»ñÈ¡½Ó¿Ú°æ±¾
+//è·å–æ¥å£ç‰ˆæœ¬
 MDAPI_API const char* GetApiVersion()
 {
 	return CThostFtdcMdApi::GetApiVersion();
 }
 
-//Á¬½Ó
+//è¿æ¥
 MDAPI_API CThostFtdcMdApi*  Connect(char* frontAddr, char *pszFlowPath, CMdSpi* pUserSpi)
 {
-	// ³õÊ¼»¯UserApi
-	CThostFtdcMdApi*  pUserApi = CThostFtdcMdApi::CreateFtdcMdApi(pszFlowPath);			// ´´½¨UserApi
+	// åˆå§‹åŒ–UserApi
+	CThostFtdcMdApi*  pUserApi = CThostFtdcMdApi::CreateFtdcMdApi(pszFlowPath);			// åˆ›å»ºUserApi
 
-	pUserApi->RegisterSpi((CThostFtdcMdSpi*)pUserSpi);						// ×¢²áÊÂ¼şÀà
+	pUserApi->RegisterSpi((CThostFtdcMdSpi*)pUserSpi);						// æ³¨å†Œäº‹ä»¶ç±»
 	pUserApi->RegisterFront(frontAddr);					// connect
 	pUserApi->Init();
 	//	pUserApi->Join();
 	return pUserApi;
 }
 
-//¶Ï¿ªÁ¬½Ó
+//æ–­å¼€è¿æ¥
 MDAPI_API void DisConnect(CThostFtdcMdApi*  pUserApi)
 {
 	if (pUserApi == NULL) return;
@@ -50,7 +50,7 @@ MDAPI_API void DisConnect(CThostFtdcMdApi*  pUserApi)
 	pUserApi->Release();
 }
 
-//»ñÈ¡µ±Ç°½»Ò×ÈÕ:Ö»ÓĞµÇÂ¼³É¹¦ºó,²ÅÄÜµÃµ½ÕıÈ·µÄ½»Ò×ÈÕ
+//è·å–å½“å‰äº¤æ˜“æ—¥:åªæœ‰ç™»å½•æˆåŠŸå,æ‰èƒ½å¾—åˆ°æ­£ç¡®çš„äº¤æ˜“æ—¥
 MDAPI_API const char *GetTradingDay(CThostFtdcMdApi*  pUserApi)
 {
 	if (pUserApi == NULL) return NULL;
@@ -58,7 +58,7 @@ MDAPI_API const char *GetTradingDay(CThostFtdcMdApi*  pUserApi)
 	return pUserApi->GetTradingDay();
 }
 
-//µÇÂ¼
+//ç™»å½•
 MDAPI_API void ReqUserLogin(CThostFtdcMdApi*  pUserApi, int requestID, TThostFtdcBrokerIDType brokerID, TThostFtdcInvestorIDType investorID, TThostFtdcPasswordType password)
 {
 	if (pUserApi == NULL) return;
@@ -71,7 +71,7 @@ MDAPI_API void ReqUserLogin(CThostFtdcMdApi*  pUserApi, int requestID, TThostFtd
 	pUserApi->ReqUserLogin(&req, requestID);
 }
 
-//µÇ³öÇëÇó
+//ç™»å‡ºè¯·æ±‚
 MDAPI_API void ReqUserLogout(CThostFtdcMdApi*  pUserApi, int requestID, TThostFtdcBrokerIDType brokerID, TThostFtdcInvestorIDType investorID)
 {
 	if (pUserApi == NULL) return;
@@ -83,7 +83,7 @@ MDAPI_API void ReqUserLogout(CThostFtdcMdApi*  pUserApi, int requestID, TThostFt
 	pUserApi->ReqUserLogout(&req, requestID);
 }
 
-//¶©ÔÄĞĞÇé
+//è®¢é˜…è¡Œæƒ…
 MDAPI_API void SubMarketData(CThostFtdcMdApi*  pUserApi, char* instrumentsID[], int nCount)
 {
 	if (pUserApi == NULL) return;
@@ -91,7 +91,7 @@ MDAPI_API void SubMarketData(CThostFtdcMdApi*  pUserApi, char* instrumentsID[], 
 	pUserApi->SubscribeMarketData(instrumentsID, nCount);
 }
 
-//ÍË¶©ĞĞÇé
+//é€€è®¢è¡Œæƒ…
 MDAPI_API void UnSubscribeMarketData(CThostFtdcMdApi*  pUserApi, char *ppInstrumentID[], int nCount)
 {
 	if (pUserApi == NULL) return;
@@ -101,51 +101,51 @@ MDAPI_API void UnSubscribeMarketData(CThostFtdcMdApi*  pUserApi, char *ppInstrum
 
 #pragma endregion
 
-#pragma region »Øµ÷º¯Êı
+#pragma region Callback Functions
 
-//============================================ »Øµ÷ º¯Êı×¢²á ===========================================
+//============================================ å›è°ƒ å‡½æ•°æ³¨å†Œ ===========================================
 MDAPI_API void WINAPI RegOnRspError(CMdSpi* pUserSpi, CBOnRspError cb)
 {
 	pUserSpi->cbOnRspError = cb;
 }
-//ĞÄÌø
+//å¿ƒè·³
 MDAPI_API void WINAPI RegOnHeartBeatWarning(CMdSpi* pUserSpi, CBOnHeartBeatWarning cb)
 {
 	pUserSpi->cbOnHeartBeatWarning = cb;
 }
 
-//Á¬½ÓÓ¦´ğ
+//è¿æ¥åº”ç­”
 MDAPI_API void WINAPI RegOnFrontConnected(CMdSpi* pUserSpi, CBOnFrontConnected cb)
 {
 	pUserSpi->cbOnFrontConnected = cb;
 }
-//Á¬½Ó¶Ï¿ª
+//è¿æ¥æ–­å¼€
 MDAPI_API void WINAPI RegOnFrontDisconnected(CMdSpi* pUserSpi, CBOnFrontDisconnected cb)
 {
 	pUserSpi->cbOnFrontDisconnected = cb;
 }
-//µÇÂ¼ÇëÇóÓ¦´ğ
+//ç™»å½•è¯·æ±‚åº”ç­”
 MDAPI_API void WINAPI RegOnRspUserLogin(CMdSpi* pUserSpi, CBOnRspUserLogin cb)
 {
 	pUserSpi->cbOnRspUserLogin = cb;
 }
-//µÇ³öÇëÇóÓ¦´ğ
+//ç™»å‡ºè¯·æ±‚åº”ç­”
 MDAPI_API void WINAPI RegOnRspUserLogout(CMdSpi* pUserSpi, CBOnRspUserLogout cb)
 {
 	pUserSpi->cbOnRspUserLogout = cb;
 }
-//¶©ÔÄĞĞÇéÓ¦´ğ
+//è®¢é˜…è¡Œæƒ…åº”ç­”
 MDAPI_API void WINAPI RegOnRspSubMarketData(CMdSpi* pUserSpi, CBOnRspSubMarketData cb)
 {
 	pUserSpi->cbOnRspSubMarketData = cb;
 }
 
-//ÍË¶©ĞĞÇéÓ¦´ğ
+//é€€è®¢è¡Œæƒ…åº”ç­”
 MDAPI_API void WINAPI RegOnRspUnSubMarketData(CMdSpi* pUserSpi, CBOnRspUnSubMarketData cb)
 {
 	pUserSpi->cbOnRspUnSubMarketData = cb;
 }
-//Éî¶ÈĞĞÇéÍ¨Öª
+//æ·±åº¦è¡Œæƒ…é€šçŸ¥
 MDAPI_API void WINAPI RegOnRtnDepthMarketData(CMdSpi* pUserSpi, CBOnRtnDepthMarketData cb)
 {
 	pUserSpi->cbOnRtnDepthMarketData = cb;
