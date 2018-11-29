@@ -93,7 +93,8 @@ namespace CTPForm.Classes
 
         private void OnData(CTPMarketData market)
         {
-            Global.AddInfo("Subcribed {0}", market.InstrmentID);
+            Global.AddInfo("Ticker: {0}, Price: {1}, Volume: {2}", 
+                market.InstrmentID, market.LastPrice, market.Volume);
         }
     }
 }
