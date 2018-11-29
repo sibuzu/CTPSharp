@@ -61,7 +61,7 @@ namespace CTPMain
 
             string tradeFrontAddr = "tcp://180.168.146.187:10030";                         // 模擬經紀商代碼
             string brokerID = "9999";                         // 模擬經紀商代碼
-            string investorID = "125291";                         // 投資者賬戶名
+            string investorID = "125288";                         // 投資者賬戶名
             string investorPassword = "jack6819";                     // 投資者密碼
 
             Console.WriteLine("InvesterID: {0}", investorID);
