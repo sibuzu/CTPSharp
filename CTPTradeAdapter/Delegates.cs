@@ -17,4 +17,10 @@ namespace CTPTradeAdapter
     /// </summary>
     /// <param name="trade">成交信息</param>
     public delegate void TradeReturnHandler(TradeInfo trade);
+
+    /// <summary>
+    /// 斷線回报事件
+    /// </summary>
+    /// <param name="nReason">斷線原因</param>
+    public delegate void DisconnectedHandler(int nReason);
 }

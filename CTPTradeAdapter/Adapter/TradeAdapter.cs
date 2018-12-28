@@ -143,6 +143,11 @@ namespace CTPTradeAdapter.Adapter
         /// </summary>
         public event TradeReturnHandler OnReturnTrade;
 
+        /// <summary>
+        /// 斷線回报
+        /// </summary>
+        public event DisconnectedHandler OnTradeDisconnected;
+
         #endregion
 
         #region 接口方法
@@ -732,6 +737,11 @@ namespace CTPTradeAdapter.Adapter
                 IsSuccess = true
             });
             _isConnected = false;
+
+            if (OnTradeDisconnected != null)
+            {
+                OnTradeDisconnected.Invoke(reason);
+            }
         }
 
         /// <summary>
