@@ -35,19 +35,19 @@ namespace CTPForm
         MyTradeAdapter _tradeAdapter;
         MyMarketAdapter _marketAdapter;
         // string[] _tickers = { "TF1812", "zn1812", "cs1901", "CF1812" };
-        string[] _tickers = { "rb1812", "TF1812", "zn1812", "cs1901", "CF1812" };
+        string[] _tickers = { "rb1909", "TF1909", "zn1809", "cs1909", "CF1909" };
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            // string tradeFrontAddr = "tcp://180.168.146.187:10030";                         // 模擬經紀商代碼
-            string tradeFrontAddr = "tcp://180.168.146.187:10001";                         // 模擬經紀商代碼
+            string tradeFrontAddr = "tcp://180.168.146.187:10030";                         // 模擬經紀商代碼
+            // string tradeFrontAddr = "tcp://180.168.146.187:10001";                         // 模擬經紀商代碼
             string brokerID = "9999";                         // 模擬經紀商代碼
             string investorID = "125291";                         // 投資者賬戶名
             string investorPassword = "jack6819";                     // 投資者密碼
 
             _tradeAdapter = new MyTradeAdapter(tradeFrontAddr, brokerID, investorID, investorPassword);
 
-            // string mdFrontAddr = "tcp://180.168.146.187:10031";                         // 模擬經紀商代碼
+            // string mdFrontAddr = "tcp://180.168.146.187:10040";                         // 模擬經紀商代碼
             string mdFrontAddr = "tcp://180.168.146.187:10010";                         // 模擬經紀商代碼
             _marketAdapter = new MyMarketAdapter(mdFrontAddr, brokerID, investorID, investorPassword);
 

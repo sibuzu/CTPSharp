@@ -55,13 +55,13 @@ namespace CTPMain
     {
         static void Main(string[] args)
         {
-            string mdFrontAddr = "tcp://180.168.146.187:10031";               // 模擬行情前置地址
+            string mdFrontAddr = "tcp://180.168.146.187:10040";               // 模擬行情前置地址
             string[] instrumentID = { "TX1812", "zn1812", "cs1901", "CF1812" }; // 行情合約代碼列表，中、上、大、鄭交易所各選一種
             int instrumentNum = 4;                                             // 行情合約訂閱數量
 
             string tradeFrontAddr = "tcp://180.168.146.187:10030";                         // 模擬經紀商代碼
             string brokerID = "9999";                         // 模擬經紀商代碼
-            string investorID = "125288";                         // 投資者賬戶名
+            string investorID = "125291";                         // 投資者賬戶名
             string investorPassword = "jack6819";                     // 投資者密碼
 
             Console.WriteLine("InvesterID: {0}", investorID);
